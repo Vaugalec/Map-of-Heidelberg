@@ -29,15 +29,12 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize the map
         var map = L.map('map').setView([37.5, -122.5], 5);  // Coordinates for initial map view (example: California)
 
-        // Add a tile layer (this is a base map, you can change the style here)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Sample GeoJSON data
         var geojsonData = {
             "type": "FeatureCollection",
             "features": [
@@ -77,17 +74,13 @@
             ]
         };
 
-        // Function to calculate the radius based on population size
         function getSymbolSize(population) {
             return Math.sqrt(population) * 0.0002;  // Adjust factor to scale symbol size
         }
 
-        // Adding GeoJSON layer with proportional symbols
         L.geoJSON(geojsonData, {
             pointToLayer: function (feature, latlng) {
-                // Use population to set proportional symbol size
                 var radius = getSymbolSize(feature.properties.population);
-
                 return L.circleMarker(latlng, {
                     radius: radius,
                     fillColor: '#ff5733',
@@ -99,7 +92,6 @@
             }
         }).addTo(map);
 
-        // Creating a legend (bonus point)
         var legend = L.control({position: 'bottomright'});
 
         legend.onAdd = function() {
